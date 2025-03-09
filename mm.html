@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>神秘大奖</title>
     <style>
-        /* 定义按钮样式 */
-        .return-button {
+      .return-button {
             display: inline-block;
             padding: 10px 20px;
             background-color: #007BFF;
@@ -18,19 +17,33 @@
             transition: background-color 0.3s ease;
         }
 
-        .return-button:hover {
+      .return-button:hover {
             background-color: #0056b3;
         }
     </style>
 </head>
 
 <body>
-    <p>最喜欢的肯定是我家肖战哥哥啦QwQ  哥哥演的电影太好看了qwq</p>
+    <p>是你非要点进来的，看到下面这张图片的人自动成为肖战十年老粉，让我们一起为哥哥举大旗，看谁敢与他为敌</p>
 
-    <img src="sdxz.jpg" alt="示例图片" style="max-width: 100%; height: auto;">
+    <img src="xz.jpg" alt="示例图片" style="max-width: 100%; height: auto;">
 
-    <!-- 使用 a 标签并添加按钮类名 -->
-    <a href="https://yang158599.github.io/my-website/trap.html" class="return-button">返回</a>
+    <a href="#" onclick="showMultipleAlerts(); return false;" class="return-button">退出（劝你不要点，哥哥会伤心的）</a>
+
+    <script>
+        function showMultipleAlerts() {
+            let messages = [
+                "还会再见吗？再见的时候你要幸福，好不好",
+                "你要开心，你要幸福，好不好，开心啊，幸福。",
+                "你的世界没有我了",
+                "没关系，你要自己幸福。",
+                "没有你我怎么活呀……你带我走吧。"
+            ];
+            for (let i = 0; i < messages.length; i++) {
+                alert(messages[i]);
+            }
+        }
+    </script>
 </body>
 
 </html>
