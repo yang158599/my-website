@@ -81,10 +81,6 @@
         /* 新增左侧按钮样式 */
         #leftButton {
             display: none;
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
             padding: 15px 30px;
             font-size: 18px;
             background-color: #28a745;
@@ -93,6 +89,7 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            margin-bottom: 10px;
         }
 
         #leftButton:hover {
@@ -102,10 +99,6 @@
         /* 新增右侧按钮样式 */
         #rightButton {
             display: none;
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
             padding: 15px 30px;
             font-size: 18px;
             background-color: #6c757d;
@@ -119,6 +112,14 @@
         #rightButton:hover {
             background-color: #5a6268;
         }
+
+        /* 新增按钮容器样式，用于居中 */
+        #buttonContainer {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
     </style>
 </head>
 
@@ -126,6 +127,12 @@
     <div class="warning">警告：点击此按钮可能会有意外发生！</div>
     <button id="trickyButton">点我有惊喜！</button>
     <button id="newButton">再点我试试！</button>
+    <div id="buttonContainer">
+        <!-- 新增左侧按钮 -->
+        <button id="leftButton">你最喜欢的东西</button>
+        <!-- 新增右侧按钮 -->
+        <button id="rightButton">你最讨厌的东西（可能略带点重口，慎点）</button>
+    </div>
     <script>
         const button = document.getElementById('trickyButton');
         const newButton = document.getElementById('newButton');
@@ -152,6 +159,11 @@
                 if (isNewButtonClicked) {
                     leftButton.style.display = 'block';
                     rightButton.style.display = 'block';
+                    // 隐藏其他按钮
+                    button.style.display = 'none';
+                    newButton.style.display = 'none';
+                    // 保存当前状态到历史记录
+                    history.pushState({ showButtons: true }, null, null);
                 }
                 if (!isNewButtonClicked) {
                     newButton.style.display = 'inline-block';
@@ -198,14 +210,26 @@
             }, 10000);
         });
 
-       // 为左侧按钮添加点击事件
+        // 为左侧按钮添加点击事件
         leftButton.addEventListener('click', function () {
+            history.pushState({ showButtons: false }, null, null);
             window.location.href = 'https://yang158599.github.io/my-website/like.html';
         });
 
         // 为右侧按钮添加点击事件
         rightButton.addEventListener('click', function () {
+            history.pushState({ showButtons: false }, null, null);
             window.location.href = 'https://yang158599.github.io/my-website/unlike.html';
+        });
+
+        // 监听浏览器历史记录的变化
+        window.addEventListener('popstate', function (event) {
+            if (event.state && event.state.showButtons) {
+                leftButton.style.display = 'block';
+                rightButton.style.display = 'block';
+                button.style.display = 'none';
+                newButton.style.display = 'none';
+            }
         });
     </script>
 </body>
