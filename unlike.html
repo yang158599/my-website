@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>点击按钮弹出 5 次弹窗</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin: 0 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #newButton {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="clickButton">咦，讨厌的东西？不存在的，别点了哦</button>
+    <button id="newButton">点击前往神秘之地</button>
+    <script>
+        const clickButton = document.getElementById('clickButton');
+        const newButton = document.getElementById('newButton');
+        let clickCount = 0;
+        // 定义包含五条弹窗信息的数组
+        const messages = [
+            "都说别点了，你咋这么不听劝？",
+            "真没有什么，相信我",
+            "哎呀，你是真的犟",
+            "给你最后一次机会，速速离开",
+            "执迷不悟，你会后悔的!"
+        ];
+
+        clickButton.addEventListener('click', function () {
+            clickCount = 0;
+            function showAlert() {
+                if (clickCount < 5) {
+                    // 从数组中取出对应索引的信息进行弹窗显示
+                    alert(messages[clickCount]);
+                    clickCount++;
+                    showAlert();
+                } else {
+                    // 五次弹窗结束后显示新按钮
+                    newButton.style.display = 'inline-block';
+                }
+            }
+            showAlert();
+        });
+
+        // 为新按钮添加点击事件，点击后跳转到指定网址
+        newButton.addEventListener('click', function () {
+            window.location.href = 'https://www.example.com'; 
+            // 请将上述网址替换为你实际想要跳转的网址
+        });
+    </script>
+</body>
+
+</html>
