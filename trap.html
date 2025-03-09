@@ -139,21 +139,28 @@
         const leftButton = document.getElementById('leftButton');
         const rightButton = document.getElementById('rightButton');
         const messages = [
-            '你关不掉我啦！',
-            '哈哈，继续被折磨吧！',
-            '别白费力气啦，你关不掉的！',
-            '还想关掉我？没那么容易！',
-            '继续战斗吧！'
+            '这是第一条自定义消息！',
+            '这是第二条自定义消息！',
+            '这是第三条自定义消息！',
+            '这是第四条自定义消息！',
+            '这是第五条自定义消息！',
+            '这是第六条自定义消息！',
+            '这是第七条自定义消息！',
+            '这是第八条自定义消息！',
+            '这是第九条自定义消息！',
+            '这是第十条自定义消息！'
         ];
         let clickCount = 0;
         let alertTimer;
         let isNewButtonClicked = false;
+        let messageIndex = 0; // 用于记录当前消息的索引
 
         function showAlert() {
-            const randomIndex = Math.floor(Math.random() * messages.length);
-            const randomMessage = messages[randomIndex];
-            alert(randomMessage);
+            const message = messages[messageIndex];
+            alert(message);
             clickCount++;
+            messageIndex = (messageIndex + 1) % messages.length; // 循环索引
+
             if (clickCount === 5) {
                 clearTimeout(alertTimer); // 清除定时器，停止弹窗循环
                 if (isNewButtonClicked) {
@@ -181,6 +188,7 @@
             button.style.backgroundColor = '#ccc';
             clickCount = 0;
             isNewButtonClicked = false;
+            messageIndex = 0; // 重置消息索引
             showAlert();
             const colorChangeInterval = setInterval(() => {
                 const randomColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
@@ -198,6 +206,7 @@
             newButton.style.backgroundColor = '#ccc';
             clickCount = 0;
             isNewButtonClicked = true;
+            messageIndex = 0; // 重置消息索引
             showAlert();
             const newColorChangeInterval = setInterval(() => {
                 const randomColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
