@@ -14,6 +14,7 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+            position: relative;
         }
 
         #trickyButton {
@@ -31,7 +32,24 @@
             background-color: #0056b3;
         }
 
-       .warning {
+        #newButton {
+            display: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-left: 20px;
+        }
+
+        #newButton:hover {
+            background-color: #c82333;
+        }
+
+        .warning {
             position: fixed;
             top: 20px;
             left: 50%;
@@ -59,14 +77,64 @@
                 opacity: 0;
             }
         }
+
+        /* 新增左侧按钮样式 */
+        #leftButton {
+            display: none;
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #leftButton:hover {
+            background-color: #218838;
+        }
+
+        /* 新增右侧按钮样式 */
+        #rightButton {
+            display: none;
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #rightButton:hover {
+            background-color: #5a6268;
+        }
     </style>
 </head>
 
 <body>
     <div class="warning">警告：点击此按钮可能会有意外发生！</div>
     <button id="trickyButton">点我有惊喜！</button>
+    <button id="newButton">再点我试试！</button>
+    <!-- 新增左侧按钮 -->
+    <button id="leftButton">你最喜欢的东西</button>
+    <!-- 新增右侧按钮 -->
+    <button id="rightButton">你最讨厌的东西（可能略带点重口，慎点）</button>
     <script>
         const button = document.getElementById('trickyButton');
+        const newButton = document.getElementById('newButton');
+        const leftButton = document.getElementById('leftButton');
+        const rightButton = document.getElementById('rightButton');
         const messages = [
             '你关不掉我啦！',
             '哈哈，继续被折磨吧！',
@@ -74,38 +142,72 @@
             '还想关掉我？没那么容易！',
             '继续战斗吧！'
         ];
+        let clickCount = 0;
+        let alertTimer;
+        let isNewButtonClicked = false;
+
+        function showAlert() {
+            const randomIndex = Math.floor(Math.random() * messages.length);
+            const randomMessage = messages[randomIndex];
+            alert(randomMessage);
+            clickCount++;
+            if (clickCount === 5) {
+                clearTimeout(alertTimer); // 清除定时器，停止弹窗循环
+                if (isNewButtonClicked) {
+                    leftButton.style.display = 'block';
+                    rightButton.style.display = 'block';
+                }
+                if (!isNewButtonClicked) {
+                    newButton.style.display = 'inline-block';
+                }
+                clickCount = 0;
+                isNewButtonClicked = false;
+            } else {
+                const randomDelay = Math.random() * 500 + 100;
+                alertTimer = setTimeout(showAlert, randomDelay);
+            }
+        }
 
         button.addEventListener('click', function () {
-            // 先禁用按钮，防止多次点击
             button.disabled = true;
             button.style.backgroundColor = '#ccc';
-
-            function showAlert() {
-                // 随机选择一条消息
-                const randomIndex = Math.floor(Math.random() * messages.length);
-                const randomMessage = messages[randomIndex];
-                alert(randomMessage);
-
-                // 随机设置下一次弹窗的时间间隔
-                const randomDelay = Math.random() * 500 + 100;
-                setTimeout(showAlert, randomDelay);
-            }
-
-            // 开始第一次弹窗
+            clickCount = 0;
+            isNewButtonClicked = false;
             showAlert();
-
-            // 每隔一段时间改变按钮颜色，增加视觉干扰
             const colorChangeInterval = setInterval(() => {
                 const randomColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
                 button.style.backgroundColor = randomColor;
             }, 200);
-
-            // 一段时间后允许用户再次点击按钮
             setTimeout(() => {
                 button.disabled = false;
                 button.style.backgroundColor = '#007BFF';
                 clearInterval(colorChangeInterval);
             }, 10000);
+        });
+
+        newButton.addEventListener('click', function () {
+            newButton.disabled = true;
+            newButton.style.backgroundColor = '#ccc';
+            clickCount = 0;
+            isNewButtonClicked = true;
+            showAlert();
+            const newColorChangeInterval = setInterval(() => {
+                const randomColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
+                newButton.style.backgroundColor = randomColor;
+            }, 200);
+            setTimeout(() => {
+                newButton.disabled = false;
+                newButton.style.backgroundColor = '#dc3545';
+                clearInterval(newColorChangeInterval);
+            }, 10000);
+        });
+
+        // 为左侧按钮添加点击事件
+        leftButton.addEventListener('click', function () {
+        });
+
+        // 为右侧按钮添加点击事件
+        rightButton.addEventListener('click', function () {
         });
     </script>
 </body>
