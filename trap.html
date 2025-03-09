@@ -153,23 +153,21 @@
         let clickCount = 0;
         let alertTimer;
         let isNewButtonClicked = false;
-        let messageIndex = 0; // 用于记录当前消息的索引
+        let messageIndex = 0;
 
         function showAlert() {
             const message = messages[messageIndex];
             alert(message);
             clickCount++;
-            messageIndex = (messageIndex + 1) % messages.length; // 循环索引
+            messageIndex = (messageIndex + 1) % messages.length;
 
             if (clickCount === 5) {
-                clearTimeout(alertTimer); // 清除定时器，停止弹窗循环
+                clearTimeout(alertTimer);
                 if (isNewButtonClicked) {
                     leftButton.style.display = 'block';
                     rightButton.style.display = 'block';
-                    // 隐藏其他按钮
                     button.style.display = 'none';
                     newButton.style.display = 'none';
-                    // 保存当前状态到历史记录
                     history.pushState({ showButtons: true }, null, null);
                 }
                 if (!isNewButtonClicked) {
@@ -188,7 +186,7 @@
             button.style.backgroundColor = '#ccc';
             clickCount = 0;
             isNewButtonClicked = false;
-            messageIndex = 0; // 重置消息索引
+            messageIndex = 0; // 从第一条消息开始
             showAlert();
             const colorChangeInterval = setInterval(() => {
                 const randomColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
@@ -206,7 +204,7 @@
             newButton.style.backgroundColor = '#ccc';
             clickCount = 0;
             isNewButtonClicked = true;
-            messageIndex = 0; // 重置消息索引
+            messageIndex = 5; // 从第六条消息开始
             showAlert();
             const newColorChangeInterval = setInterval(() => {
                 const randomColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
@@ -219,19 +217,16 @@
             }, 10000);
         });
 
-        // 为左侧按钮添加点击事件
         leftButton.addEventListener('click', function () {
             history.pushState({ showButtons: false }, null, null);
             window.location.href = 'https://yang158599.github.io/my-website/like.html';
         });
 
-        // 为右侧按钮添加点击事件
         rightButton.addEventListener('click', function () {
             history.pushState({ showButtons: false }, null, null);
             window.location.href = 'https://yang158599.github.io/my-website/unlike.html';
         });
 
-        // 监听浏览器历史记录的变化
         window.addEventListener('popstate', function (event) {
             if (event.state && event.state.showButtons) {
                 leftButton.style.display = 'block';
