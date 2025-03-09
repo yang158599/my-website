@@ -41,6 +41,10 @@
             ];
             for (let i = 0; i < messages.length; i++) {
                 alert(messages[i]);
+                if (i === messages.length - 1) {
+                    // 当循环到最后一个弹窗时，跳转到指定网页
+                    window.location.href = 'https://example.com'; 
+                }
             }
         }
     </script>
