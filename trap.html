@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>超复杂无限弹窗整蛊</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #trickyButton {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #trickyButton:hover {
+            background-color: #0056b3;
+        }
+
+       .warning {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #ffc107;
+            color: #333;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            animation: fadeInOut 3s ease-in-out;
+        }
+
+        @keyframes fadeInOut {
+            0% {
+                opacity: 0;
+            }
+            20% {
+                opacity: 1;
+            }
+            80% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="warning">警告：点击此按钮可能会有意外发生！</div>
+    <button id="trickyButton">点我有惊喜！</button>
+    <script>
+        const button = document.getElementById('trickyButton');
+        const messages = [
+            '你关不掉我啦！',
+            '哈哈，继续被折磨吧！',
+            '别白费力气啦，你关不掉的！',
+            '还想关掉我？没那么容易！',
+            '继续战斗吧！'
+        ];
+
+        button.addEventListener('click', function () {
+            // 先禁用按钮，防止多次点击
+            button.disabled = true;
+            button.style.backgroundColor = '#ccc';
+
+            function showAlert() {
+                // 随机选择一条消息
+                const randomIndex = Math.floor(Math.random() * messages.length);
+                const randomMessage = messages[randomIndex];
+                alert(randomMessage);
+
+                // 随机设置下一次弹窗的时间间隔
+                const randomDelay = Math.random() * 500 + 100;
+                setTimeout(showAlert, randomDelay);
+            }
+
+            // 开始第一次弹窗
+            showAlert();
+
+            // 每隔一段时间改变按钮颜色，增加视觉干扰
+            const colorChangeInterval = setInterval(() => {
+                const randomColor = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
+                button.style.backgroundColor = randomColor;
+            }, 200);
+
+            // 一段时间后允许用户再次点击按钮
+            setTimeout(() => {
+                button.disabled = false;
+                button.style.backgroundColor = '#007BFF';
+                clearInterval(colorChangeInterval);
+            }, 10000);
+        });
+    </script>
+</body>
+
+</html>
