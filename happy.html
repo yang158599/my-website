@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>你值得被善待</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            color: #495057;
+            text-align: center;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #6c757d;
+            margin-bottom: 30px;
+            font-weight: normal;
+        }
+        
+        .star {
+            font-size: 30px;
+            color: #ffc107;
+            animation: twinkle 1.5s infinite alternate;
+            display: inline-block;
+        }
+        
+        @keyframes twinkle {
+            to { opacity: 0.7; transform: scale(1.1); }
+        }
+        
+        .message {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f1f8ff;
+            border-radius: 10px;
+            border-left: 5px solid #6c757d;
+        }
+        
+        .nature {
+            font-size: 40px;
+            margin: 20px;
+            display: inline-block;
+        }
+        
+        button {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            background-color: #5a6268;
+            transform: scale(1.05);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .affirmation {
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #e2f3f8;
+            border-radius: 8px;
+            animation: fadeIn 1s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .signature {
+            margin-top: 30px;
+            font-style: italic;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nature">🌻</div>
+        <h1>想对你说...</h1>
+        <div class="star">✨</div>
+        
+        <div class="message">
+            <p>每个人都会经历艰难时刻，但那不代表你的全部。</p>
+            <p>你比你想象的要坚强得多。</p>
+        </div>
+        
+        <div class="nature">🍃</div>
+        
+        <div id="affirmationContainer">
+            <div class="affirmation">你有能力度过任何困难时期</div>
+            <div class="affirmation hidden">你的存在让这个世界变得更好</div>
+            <div class="affirmation hidden">你值得被善待和尊重</div>
+            <div class="affirmation hidden">你的独特性是无可替代的</div>
+            <div class="affirmation hidden">每一天都是重新开始的机会</div>
+        </div>
+        
+        <button onclick="showNextAffirmation()">更多鼓励的话</button>
+        <button onclick="showSupport()">特别支持</button>
+        
+        <div id="support" class="hidden" style="margin-top: 30px;">
+            <div class="nature">🌿</div>
+            <h2>请记住：</h2>
+            <p>无论何时，都有人在乎你、支持你。</p>
+            <p>你永远不是独自一人。</p>
+            <div style="font-size: 50px;">🤝</div>
+        </div>
+        
+        <div class="signature">
+            <p>—— 一个不善言辞的笨蛋</p>
+        </div>
+    </div>
+
+    <script>
+        let currentAffirmation = 0;
+        const affirmations = document.querySelectorAll('.affirmation');
+        
+        function showNextAffirmation() {
+            affirmations[currentAffirmation].classList.add('hidden');
+            currentAffirmation = (currentAffirmation + 1) % affirmations.length;
+            affirmations[currentAffirmation].classList.remove('hidden');
+        }
+        
+        function showSupport() {
+            document.getElementById('support').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
